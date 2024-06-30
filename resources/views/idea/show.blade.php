@@ -78,17 +78,11 @@
             </div>
             <div class="col-6">
                 @include('shared.success')
-                @include('shared.share-idea')
-                <hr>
-
-                @foreach ($ideas as $idea)
                 <div class="mt-3">
                     @include('shared.post-card')
-                </div>
-                @endforeach
-                {{$ideas->links()}}
 
-
+              </div>            
+            
             </div>
             <div class="col-3">
                 <div class="card">

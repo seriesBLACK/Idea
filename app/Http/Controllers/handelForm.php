@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 class handelForm extends Controller
 {
+    public function show(Post $idea)
+    {
+        return view("idea.show", [
+            "idea" => $idea
+        ]);
+    }
+
+
     public function store()
     {
 
@@ -26,10 +34,32 @@ class handelForm extends Controller
         return redirect()->route('dashboard')->with("flash", "post was sent successfuly");
     }
 
-    public function destroy($id)
+    public function destroy(Post $id)
     {
-        $post = Post::where('id', $id)->first();
-        $post->delete();
+        $id->delete();
+
         return redirect()->route('dashboard')->with("flash", "post deleted");
+    }
+
+    public function edit(Post $idea)
+    {
+        $editing = true;
+
+        return view("idea.show", [
+            "idea" => $idea,
+            "editing" => $editing
+        ]);
+    }
+
+    public function update(Post $idea)
+    {
+        request()->validate([
+            "content" => 'required|min:3|max:240'
+        ]);
+
+        $idea->post = request()->get('content');
+        $idea->save();
+
+        return redirect()->route('idea.show', $idea->id)->with('flash', "post updated");
     }
 }

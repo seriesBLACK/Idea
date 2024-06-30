@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" id="card">
   <div class="px-3 pt-4 pb-2">
       <div class="d-flex align-items-center justify-content-between">
           <div class="d-flex align-items-center">
@@ -13,17 +13,41 @@
           <form method="POST" action="{{route('idea.destroy', $idea->id)}}" >
             @method('delete')
             @csrf
+            <a href="{{route('idea.edit', $idea->id)}}">Edit</a>
+            <a class="mx-2" href="{{route('idea.show', $idea->id)}}">View</a>
             <button class="btn btn-sm btn-danger">X</button>
-          </form>
+        </form>
       </div>
   </div>
   
   
   
   <div class="card-body">
-      <p class="fs-6 fw-light text-muted">
-          {{$idea -> post}}
-      </p>
+    @if ($editing ?? false)
+
+
+    <form action="{{route('idea.update', $idea->id)}}" method="post">
+        @csrf
+        @method('PUT')
+        <div class="mb-3">
+            <textarea name="content" required minlength="5" class="form-control" id="content" rows="3">{{$idea->post}}</textarea>
+            @error('content')
+            <span class="fs-6 text-danger">{{$message}}</span>
+                
+            @enderror
+        </div>
+        <div class="">
+            <button type="submit" class="btn btn-dark"> Share </button>
+        </div>
+    </form>
+
+
+    @else
+        
+    <p class="fs-6 fw-light text-muted">
+        {{$idea -> post}}
+    </p>
+    @endif
       <div class="d-flex justify-content-between">
           <div>
               <a href="#" class="fw-light nav-link fs-6">

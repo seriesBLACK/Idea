@@ -9,9 +9,14 @@ class dashborad extends Controller
 {
     public function index()
     {
+        $post = Post::orderBy('created_at', 'DESC');
+        $search = request()->get('search', '');
 
+        if ($search) {
+            $post = $post->where('post', 'like', '%' . $search . '%');
+        }
         return view('dashboard', [
-            "ideas" => Post::orderBy('created_at', 'DESC')->paginate('5')
+            "ideas" => $post->paginate('5')
         ]);
     }
 }

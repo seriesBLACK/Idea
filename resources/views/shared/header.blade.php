@@ -8,15 +8,30 @@ data-bs-theme="dark">
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
+            @guest
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/login">Login</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/register">Register</a>
             </li>
+            @endguest
+            @auth              
             <li class="nav-item">
-                <a class="nav-link" href="/profile">Profile</a>
+                <a class="nav-link" href="/profile">{{Auth::user()->name}}</a>
             </li>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+            <li class="nav-itme">
+
+                <a href="{{ route('logout') }}" 
+                onclick="event.preventDefault(); 
+                         document.getElementById('logout-form').submit();" class="nav-link">
+                Logout
+            </a>
+        </li>
+            @endauth
         </ul>
     </div>
 </div>

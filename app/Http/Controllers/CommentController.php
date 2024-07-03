@@ -13,6 +13,7 @@ class CommentController extends Controller
     {
         $comment = new Comment();
         $comment->idea_id = $idea->id;
+        $comment->user_id = auth()->id();
         $comment->content = request('content');
         $comment->save();
         return redirect()->back()->with('flash', 'Comment was sent');

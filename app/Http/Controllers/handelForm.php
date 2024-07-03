@@ -23,13 +23,13 @@ class handelForm extends Controller
         ]);
 
 
-        $idea = Post::create(
+        Post::create(
             [
-                "post" => request()->get('idea', 'empty')
+                "post" => request()->get('idea', 'empty'),
+                "user_id" => auth()->id()
             ]
         );
 
-        $idea->save();
 
         return redirect()->route('dashboard')->with("flash", "post was sent successfuly");
     }

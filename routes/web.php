@@ -4,11 +4,13 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\dashborad;
 use App\Http\Controllers\handelForm;
+use App\Http\Controllers\profile;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class, 'store']);
 
 Route::get('/', [dashborad::class, 'index'])->name('dashboard');
+Route::get('/profile', [profile::class, 'index'])->name('profile');
 
 Route::post('/ideas', [handelForm::class, 'store'])->name('idea.store');
 

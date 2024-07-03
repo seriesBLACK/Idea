@@ -10,10 +10,15 @@ class Post extends Model
     use HasFactory;
 
     protected $table = 'ideas';
-    protected $fillable = ['post', 'likes'];
+    protected $fillable = ['post', 'likes', 'user_id'];
 
     public function comments()
     {
         return $this->hasMany(Comment::class, "idea_id", "id");
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -16,9 +16,14 @@ data-bs-theme="dark">
                 <a class="nav-link" href="/register">Register</a>
             </li>
             @endguest
-            @auth              
+            @auth    
+            <form id="profile-form" action="{{ route('profile') }}" method="GET" style="display: none;">
+                @csrf
+            </form>          
             <li class="nav-item">
-                <a class="nav-link" href="/profile">{{Auth::user()->name}}</a>
+                <a href="{{ route('profile') }}" 
+                onclick="event.preventDefault(); 
+                         document.getElementById('profile-form').submit();" class="nav-link">{{Auth::user()->name}}</a>
             </li>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf

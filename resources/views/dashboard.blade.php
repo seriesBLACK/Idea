@@ -29,7 +29,7 @@
                     @include('shared.post-card')
                 </div>
                 @endforeach
-                {{$ideas->links()}}
+                {{$ideas->withQueryString()->links()}}
 
 
             </div>

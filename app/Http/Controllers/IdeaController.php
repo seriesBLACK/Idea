@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
-class handelForm extends Controller
+class IdeaController extends Controller
 {
     public function show(Post $idea)
     {

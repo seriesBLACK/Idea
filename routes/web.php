@@ -2,30 +2,28 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\dashborad;
-use App\Http\Controllers\handelForm;
-use App\Http\Controllers\profile;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\IdeaController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/register', [AuthController::class, 'store']);
-
-Route::get('/', [dashborad::class, 'index'])->name('dashboard');
-Route::get('/profile', [profile::class, 'index'])->name('profile');
-
-Route::post('/ideas', [handelForm::class, 'store'])->name('idea.store');
-
+// Authentication Routes
 Route::get('/register', [AuthController::class, 'index'])->name('register');
-
-Route::get('/ideas/{idea}', [handelForm::class, 'show'])->name('idea.show');
-
-Route::put('/ideas/{idea}', [handelForm::class, 'update'])->name('idea.update');
-
-Route::get('/ideas/{idea}/edit', [handelForm::class, 'edit'])->name('idea.edit');
-
-Route::delete('/ideas/{id}', [handelForm::class, 'destroy'])->name('idea.destroy');
-
-Route::post('/ideas/{idea}/comments', [CommentController::class, 'store'])->name('idea.comments.store');
-
+Route::post('/register', [AuthController::class, 'store']);
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'auth']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Dashboard and Profile Routes
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+
+// // Idea Routes
+Route::get('/ideas/{idea}', [IdeaController::class, 'show'])->name('idea.show');
+Route::post('/ideas', [IdeaController::class, 'store'])->name('idea.store');
+Route::put('/ideas/{idea}', [IdeaController::class, 'update'])->name('idea.update')->middleware('auth');
+Route::get('/ideas/{idea}/edit', [IdeaController::class, 'edit'])->name('idea.edit')->middleware('auth');
+Route::delete('/ideas/{id}', [IdeaController::class, 'destroy'])->name('idea.destroy')->middleware('auth');
+
+// Comment Routes
+Route::post('/ideas/{idea}/comments', [CommentController::class, 'store'])->name('idea.comments.store')->middleware('auth');

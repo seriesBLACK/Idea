@@ -5,7 +5,7 @@
   <div class="card-body">
     <form action="{{route('dashboard')}}" method="GET">
 
-        <input name="search" placeholder="...
+        <input name="search" value="{{request('search', '')}}" placeholder="...
         " class="form-control w-100" type="text"
         id="search">
         <button class="btn btn-dark mt-2"> Search</button>

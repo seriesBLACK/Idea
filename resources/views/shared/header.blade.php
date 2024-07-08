@@ -17,11 +17,11 @@ data-bs-theme="dark">
             </li>
             @endguest
             @auth    
-            <form id="profile-form" action="{{ route('user.show') }}" method="GET" style="display: none;">
+            <form id="profile-form" action="{{ route('user.show', auth()->id()) }}" method="GET" style="display: none;">
                 @csrf
             </form>          
             <li class="nav-item">
-                <a href="{{ route('user.show') }}" 
+                <a href="{{ route('user.show', auth()->id()) }}" 
                 onclick="event.preventDefault(); 
                          document.getElementById('profile-form').submit();" class="nav-link">{{Auth::user()->name}}</a>
             </li>

@@ -8,10 +8,14 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function show()
+    public function show(User $user)
     {
-        $ideas = Post::where('user_id', auth()->id())->get();
+        return view('users.user-show', compact('user'));
+    }
 
-        return view('profile', compact('ideas'));
+    public function edit(User $user)
+    {
+        $editting = true;
+        return view('users.user-show', compact('user', 'editting'));
     }
 }

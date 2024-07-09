@@ -19,7 +19,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/users/{user}', [UserController::class, 'show'])->name('user.show')->middleware('auth');
 Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('user.edit')->middleware('auth');
-
+Route::put('/users/{user}', [UserController::class, 'update'])->name('user.update')->middleware('auth');
 
 // // Idea Routes
 Route::get('/ideas/{idea}', [IdeaController::class, 'show'])->name('idea.show');

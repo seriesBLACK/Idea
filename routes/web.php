@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FeedController;
 use App\Http\Controllers\followerController;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\ProfileController;
@@ -34,3 +35,8 @@ Route::delete('/ideas/{id}', [IdeaController::class, 'destroy'])->name('idea.des
 
 // Comment Routes
 Route::post('/ideas/{idea}/comments', [CommentController::class, 'store'])->name('idea.comments.store')->middleware('auth');
+
+Route::get('/terms', function () {
+  return view('terms');
+})->name('terms');
+Route::get('/feed', FeedController::class)->middleware('auth')->name('feed');

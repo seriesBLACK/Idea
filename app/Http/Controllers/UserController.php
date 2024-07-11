@@ -35,10 +35,28 @@ class UserController extends Controller
             $imagePath = request()->file('image')->store('profile', 'public');
             $validate['image'] = $imagePath;
 
-            Storage::disk('public')->delete($user->image);
+            Storage::disk('public')->delete($user->image ?? '');
         }
 
         $user->update($validate);
+        $ideas = $user->ideas()->paginate(5);
+        return view('users.show', compact('user', 'ideas'));
+    }
+
+    public function follow(User $user)
+    {
+        $follower = auth()->user();
+        $follower->followings()->attach($user);
+
+        $ideas = $user->ideas()->paginate(5);
+        return view('users.show', compact('user', 'ideas'));
+    }
+
+    public function unfollow(User $user)
+    {
+        $follower = auth()->user();
+        $follower->followings()->detach($user);
+
         $ideas = $user->ideas()->paginate(5);
         return view('users.show', compact('user', 'ideas'));
     }
